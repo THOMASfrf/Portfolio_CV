@@ -434,6 +434,162 @@
             background: #ef4444;
         }
 
+        /* Projets Section */
+        .projets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+        }
+
+        .projet-card {
+            background: white;
+            border-radius: 20px;
+            padding: 0;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .projet-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 152, 0, 0.15);
+            border-color: var(--primary);
+        }
+
+        .projet-image-container {
+            width: 100%;
+            height: 250px;
+            background: var(--light);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .projet-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .projet-image-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            color: var(--gray);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .projet-image-placeholder .icon {
+            font-size: 4em;
+            opacity: 0.3;
+        }
+
+        .projet-image-placeholder .text {
+            font-size: 0.9em;
+            opacity: 0.6;
+        }
+
+        .projet-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 25px 30px;
+            position: relative;
+        }
+
+        .projet-header h3 {
+            font-size: 1.6em;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .projet-header .type {
+            font-size: 0.85em;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .projet-body {
+            padding: 30px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .projet-description {
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 25px;
+            font-size: 0.95em;
+        }
+
+        .projet-details {
+            margin-bottom: 25px;
+        }
+
+        .projet-detail-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .projet-detail-item .icon {
+            width: 35px;
+            height: 35px;
+            background: var(--light);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            flex-shrink: 0;
+        }
+
+        .projet-detail-item .content {
+            flex: 1;
+        }
+
+        .projet-detail-item .label {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 3px;
+            font-size: 0.95em;
+        }
+
+        .projet-detail-item .text {
+            color: var(--gray);
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        .projet-technologies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: auto;
+            padding-top: 20px;
+        }
+
+        .tech-tag {
+            background: var(--light);
+            color: var(--dark);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+            border: 1px solid var(--accent);
+        }
+
         /* Modal */
         .modal {
             display: none;
@@ -728,6 +884,8 @@
             nav {
                 gap: 20px;
                 margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
             }
 
             .cv-hero {
@@ -769,6 +927,10 @@
             .modal-header h2 {
                 font-size: 2em;
             }
+
+            .projets-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -777,9 +939,10 @@
         <div class="nav-container">
             <div class="logo">TH Portfolio</div>
             <nav>
-                <button class="nav-btn active" onclick="showSection('cv')">CV</button>
-                <button class="nav-btn" onclick="showSection('portfolio')">Compétences</button>
-                <button class="nav-btn" onclick="showSection('contact')">Contact</button>
+                <button class="nav-btn active" onclick="showSection('cv', this)">CV</button>
+                <button class="nav-btn" onclick="showSection('projets', this)">Projets</button>
+                <button class="nav-btn" onclick="showSection('portfolio', this)">Compétences</button>
+                <button class="nav-btn" onclick="showSection('contact', this)">Contact</button>
             </nav>
         </div>
     </header>
@@ -905,7 +1068,7 @@
                         <div class="skill-tag">📐 Lecture de schémas électriques</div>
                         <div class="skill-tag">🔧 Câblage électronique</div>
                         <div class="skill-tag">🛠️ Maintenance avionique</div>
-                        <div class="skill-tag">💾 Programmation (C, Python, Assembleur)</div>
+                        <div class="skill-tag">💾 Programmation (C, Python, MicroPython)</div>
                         <div class="skill-tag">🤖 Programmation microcontrôleurs</div>
                         <div class="skill-tag">⚙️ Automates programmables</div>
                         <div class="skill-tag">👥 Travail en équipe pluridisciplinaire</div>
@@ -918,6 +1081,197 @@
                         <div class="skill-tag">🇫🇷 Français - Langue maternelle</div>
                         <div class="skill-tag">🇬🇧 Anglais</div>
                         <div class="skill-tag">✈️ Anglais technique aéronautique</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Projets SAE -->
+        <section id="projets" class="section">
+            <div class="portfolio-header">
+                <h1>Projets SAE</h1>
+                <p>Situations d'Apprentissage et d'Évaluation réalisées durant mon cursus</p>
+            </div>
+
+            <div class="projets-grid">
+                <!-- Carte Thermostat -->
+                <div class="projet-card">
+                    <div class="projet-image-container">
+                        <!-- Insérez votre image ici -->
+                        <!-- <img src="chemin/vers/votre/image-thermostat.jpg" alt="Carte Thermostat"> -->
+                        <div class="projet-image-placeholder">
+                            <div class="icon">🌡️</div>
+                            <div class="text">Insérez une photo de votre carte thermostat<br>(recommandé: 800x500px)</div>
+                        </div>
+                    </div>
+                    <div class="projet-header">
+                        <h3>Carte Thermostat</h3>
+                        <div class="type">Projet SAE - Électronique</div>
+                    </div>
+                    <div class="projet-body">
+                        <p class="projet-description">
+                            Montage et programmation d'une carte thermostat électronique capable de réguler 
+                            la température en mode chauffage ou climatisation selon la consigne définie.
+                        </p>
+                        <div class="projet-details">
+                            <div class="projet-detail-item">
+                                <div class="icon">🎯</div>
+                                <div class="content">
+                                    <div class="label">Objectif</div>
+                                    <div class="text">Monter une carte thermostat et la programmer pour capter la température, puis chauffer ou refroidir selon la consigne et le mode sélectionné (chauffage/climatisation)</div>
+                                </div>
+                            </div>
+                            <div class="projet-detail-item">
+                                <div class="icon">🔧</div>
+                                <div class="content">
+                                    <div class="label">Réalisations</div>
+                                    <div class="text">Montage de la carte électronique, programmation du microcontrôleur en MicroPython pour la gestion de la régulation thermique, calibration des capteurs de température, tests en modes chauffage et climatisation</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="projet-technologies">
+                            <span class="tech-tag">Microcontrôleur</span>
+                            <span class="tech-tag">Capteur température</span>
+                            <span class="tech-tag">MicroPython</span>
+                            <span class="tech-tag">Régulation thermique</span>
+                            <span class="tech-tag">Chauffage/Climatisation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vérification Chargeur -->
+                <div class="projet-card">
+                    <div class="projet-image-container">
+                        <!-- Insérez votre image ici -->
+                        <!-- <img src="chemin/vers/votre/image-chargeur.jpg" alt="Vérification Chargeur"> -->
+                        <div class="projet-image-placeholder">
+                            <div class="icon">🔌</div>
+                            <div class="text">Insérez une photo de vos mesures sur le chargeur<br>(recommandé: 800x500px)</div>
+                        </div>
+                    </div>
+                    <div class="projet-header">
+                        <h3>Vérification Chargeur de Téléphone</h3>
+                        <div class="type">Projet SAE - Métrologie</div>
+                    </div>
+                    <div class="projet-body">
+                        <p class="projet-description">
+                            Analyse et vérification méthodique des caractéristiques électriques d'un chargeur de téléphone 
+                            à chaque étage de conversion, du transformateur jusqu'à la sortie régulée.
+                        </p>
+                        <div class="projet-details">
+                            <div class="projet-detail-item">
+                                <div class="icon">🎯</div>
+                                <div class="content">
+                                    <div class="label">Objectif</div>
+                                    <div class="text">Valider la conformité et analyser le fonctionnement de chaque étage du dispositif de charge</div>
+                                </div>
+                            </div>
+                            <div class="projet-detail-item">
+                                <div class="icon">📊</div>
+                                <div class="content">
+                                    <div class="label">Réalisations</div>
+                                    <div class="text">Tests et mesures à chaque étape : sortie du transformateur (tension alternative), sortie du pont de diodes (tension redressée), sortie des régulateurs (tension stabilisée). Analyse des ondulations résiduelles, mesures de courant, vérification des régimes transitoires et rédaction d'un rapport de conformité détaillé.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="projet-technologies">
+                            <span class="tech-tag">Oscilloscope</span>
+                            <span class="tech-tag">Multimètre</span>
+                            <span class="tech-tag">Analyse de signaux</span>
+                            <span class="tech-tag">Pont de diodes</span>
+                            <span class="tech-tag">Régulateurs</span>
+                            <span class="tech-tag">Normes électriques</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Robot Suiveur de Ligne -->
+                <div class="projet-card">
+                    <div class="projet-image-container">
+                        <!-- Insérez votre image ici -->
+                        <!-- <img src="chemin/vers/votre/image-robot.jpg" alt="Robot Suiveur de Ligne"> -->
+                        <div class="projet-image-placeholder">
+                            <div class="icon">🤖</div>
+                            <div class="text">Insérez une photo de votre robot suiveur de ligne<br>(recommandé: 800x500px)</div>
+                        </div>
+                    </div>
+                    <div class="projet-header">
+                        <h3>Robot Suiveur de Ligne</h3>
+                        <div class="type">Projet SAE - Systèmes Embarqués</div>
+                    </div>
+                    <div class="projet-body">
+                        <p class="projet-description">
+                            Conception et programmation d'un robot autonome capable de suivre une ligne tracée 
+                            au sol en temps réel.
+                        </p>
+                        <div class="projet-details">
+                            <div class="projet-detail-item">
+                                <div class="icon">🎯</div>
+                                <div class="content">
+                                    <div class="label">Objectif</div>
+                                    <div class="text">Développer un système embarqué autonome avec asservissement</div>
+                                </div>
+                            </div>
+                            <div class="projet-detail-item">
+                                <div class="icon">⚙️</div>
+                                <div class="content">
+                                    <div class="label">Réalisations</div>
+                                    <div class="text">Conception PCB carte capteur sur Altium Designer, câblage moteurs et capteurs, programmation en MicroPython de l'algorithme de suivi, calibration capteurs optiques, tests de parcours</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="projet-technologies">
+                            <span class="tech-tag">Microcontrôleur</span>
+                            <span class="tech-tag">Capteurs IR</span>
+                            <span class="tech-tag">Moteurs DC</span>
+                            <span class="tech-tag">MicroPython</span>
+                            <span class="tech-tag">Altium Designer</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Récepteur DTMF Anti-Vol -->
+                <div class="projet-card">
+                    <div class="projet-image-container">
+                        <!-- Insérez votre image ici -->
+                        <!-- <img src="chemin/vers/votre/image-dtmf.jpg" alt="Récepteur DTMF Anti-Vol"> -->
+                        <div class="projet-image-placeholder">
+                            <div class="icon">📡</div>
+                            <div class="text">Insérez une photo de votre système anti-vol DTMF<br>(recommandé: 800x500px)</div>
+                        </div>
+                    </div>
+                    <div class="projet-header">
+                        <h3>Récepteur DTMF Anti-Vol</h3>
+                        <div class="type">Projet SAE - Télécommunications</div>
+                    </div>
+                    <div class="projet-body">
+                        <p class="projet-description">
+                            Développement d'un système de réception de signaux DTMF pour sécuriser un casier 
+                            de pêche contre le vol.
+                        </p>
+                        <div class="projet-details">
+                            <div class="projet-detail-item">
+                                <div class="icon">🎯</div>
+                                <div class="content">
+                                    <div class="label">Objectif</div>
+                                    <div class="text">Créer un système d'alarme activable à distance par tonalités téléphoniques</div>
+                                </div>
+                            </div>
+                            <div class="projet-detail-item">
+                                <div class="icon">🔐</div>
+                                <div class="content">
+                                    <div class="label">Réalisations</div>
+                                    <div class="text">Décodage signaux DTMF, programmation en MicroPython de la logique de sécurité, intégration capteurs d'intrusion, tests en conditions réelles</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="projet-technologies">
+                            <span class="tech-tag">Décodeur DTMF</span>
+                            <span class="tech-tag">Microcontrôleur</span>
+                            <span class="tech-tag">MicroPython</span>
+                            <span class="tech-tag">Capteurs</span>
+                            <span class="tech-tag">Alarme</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -964,7 +1318,7 @@
                 <div class="contact-card">
                     <div class="contact-icon">📧</div>
                     <h3>Email</h3>
-                    <a href="/cdn-cgi/l/email-protection#5125393e3c30227f3c3e33383d34636811363c30383d7f323e3c"><span class="__cf_email__" data-cfemail="6f1b0700020e1c4102000d06030a5d562f08020e0603410c0002">[email&#160;protected]</span></a>
+                    <a href="/cdn-cgi/l/email-protection#790d111614180a5711161a11180b0d391c01181409151c571a1614"><span class="__cf_email__" data-cfemail="86f2eee9ebe7f5a8eee9e5eee7f4f2c6e3fee7ebf6eae3a8e5e9eb">[email&#160;protected]</span></a>
                 </div>
 
                 <div class="contact-card">
@@ -1191,58 +1545,8 @@
         </div>
     </div>
 
-    <div id="modal-programmer" class="modal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('programmer')">×</button>
-            
-            <div class="modal-header">
-                <div class="modal-icon">💻</div>
-                <h2>Programmer</h2>
-            </div>
-
-            <div class="projet-item">
-                <h4>Programmation de systèmes embarqués</h4>
-                <div class="projet-detail">
-                    <strong>Compétences développées :</strong>
-                    <ul>
-                        <li>Programmation de microcontrôleurs</li>
-                        <li>Développement pour systèmes temps réel</li>
-                        <li>Interfaçage de capteurs et actionneurs</li>
-                        <li>Communication série et protocoles industriels</li>
-                        <li>Débogage et optimisation de code embarqué</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="projet-item">
-                <h4>Langages et environnements</h4>
-                <div class="projet-detail">
-                    <strong>Technologies utilisées :</strong>
-                    <ul>
-                        <li>Langage C pour systèmes embarqués</li>
-                        <li>Assembleur pour microcontrôleurs</li>
-                        <li>Python pour automatisation</li>
-                        <li>Environnements de développement IDE spécialisés</li>
-                        <li>Programmation d'automates (ladder, grafcet)</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="competences-list">
-                <h4>Domaines d'application</h4>
-                <ul>
-                    <li>Microcontrôleurs</li>
-                    <li>Systèmes embarqués</li>
-                    <li>Automatisme industriel</li>
-                    <li>IoT et capteurs</li>
-                    <li>Contrôle-commande</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function showSection(sectionId) {
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        function showSection(sectionId, element) {
             document.querySelectorAll('.section').forEach(section => {
                 section.classList.remove('active');
             });
@@ -1252,7 +1556,7 @@
             });
             
             document.getElementById(sectionId).classList.add('active');
-            event.target.classList.add('active');
+            element.classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -1286,7 +1590,5 @@
             }
         });
     </script>
-</body>
-</html>
 </body>
 </html>
