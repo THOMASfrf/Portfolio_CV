@@ -1,936 +1,105 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thomas Hochart - Portfolio GEII</title>
-    <style>
-        :root {
-            --primary: #ff9800;
-            --secondary: #f57c00;
-            --accent: #ffb74d;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --gray: #64748b;
-            --success: #10b981;
-        }
+<!DOCTYPE html><html lang="fr"><head>    <meta charset="UTF-8">    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>Thomas Hochart - Portfolio GEII</title>    <style>        :root {            --primary: #ff9800;            --secondary: #f57c00;            --accent: #ffb74d;            --dark: #1e293b;            --light: #f8fafc;            --gray: #64748b;            --success: #10b981;        }        * {            margin: 0;            padding: 0;            box-sizing: border-box;        }        body {            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;            line-height: 1.6;            color: var(--dark);            background: var(--light);        }        header {            background: white;            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);            position: sticky;            top: 0;            z-index: 1000;        }        .nav-container {            max-width: 1200px;            margin: 0 auto;            padding: 0 20px;            display: flex;            justify-content: space-between;            align-items: center;            height: 70px;        }        .logo {            font-size: 24px;            font-weight: 700;            color: var(--primary);        }        nav {            display: flex;            gap: 40px;        }        nav button {            background: none;            border: none;            color: var(--gray);            font-size: 16px;            font-weight: 500;            cursor: pointer;            padding: 8px 0;            transition: color 0.3s ease;            position: relative;        }        nav button::after {            content: '';            position: absolute;            bottom: 0;            left: 0;            width: 0;            height: 2px;            background: var(--primary);            transition: width 0.3s ease;        }        nav button:hover, nav button.active {            color: var(--primary);        }        nav button.active::after {            width: 100%;        }        .container {            max-width: 1200px;            margin: 0 auto;            padding: 60px 20px;        }        .section {            display: none;            animation: fadeIn 0.5s ease;        }        .section.active {            display: block;        }        @keyframes fadeIn {            from { opacity: 0; transform: translateY(20px); }            to { opacity: 1; transform: translateY(0); }        }
+        /* CV */
+        .cv-hero {            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);            color: white;            padding: 80px 40px;            border-radius: 20px;            margin-bottom: 40px;            display: flex;            align-items: center;            gap: 50px;            box-shadow: 0 20px 50px rgba(255, 152, 0, 0.2);        }        .cv-photo {            width: 200px;            height: 200px;            border-radius: 50%;            background: white;            border: 6px solid rgba(255, 255, 255, 0.3);            display: flex;            align-items: center;            justify-content: center;            font-size: 18px;            color: var(--primary);            font-weight: 600;            flex-shrink: 0;            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);            overflow: hidden;        }        .cv-photo img { width: 100%; height: 100%; object-fit: cover; }        .cv-intro { flex: 1; }        .cv-intro h1 { font-size: 3em; margin-bottom: 10px; font-weight: 700; }        .cv-intro .title { font-size: 1.5em; margin-bottom: 20px; opacity: 0.9; font-weight: 300; }        .cv-intro .bio { font-size: 1.1em; line-height: 1.8; opacity: 0.95; }        .cv-content {            background: white;            border-radius: 20px;            padding: 50px;            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);        }        .cv-section { margin-bottom: 50px; }        .cv-section:last-child { margin-bottom: 0; }        .cv-section h2 {            font-size: 2em;            color: var(--primary);            margin-bottom: 30px;            padding-bottom: 15px;            border-bottom: 3px solid var(--accent);            display: inline-block;        }        .timeline-item {            position: relative;            padding-left: 40px;            margin-bottom: 30px;            border-left: 2px solid var(--accent);        }        .timeline-item::before {            content: '';            position: absolute;            left: -8px;            top: 0;            width: 14px;            height: 14px;            border-radius: 50%;            background: var(--primary);            border: 3px solid white;            box-shadow: 0 0 0 2px var(--accent);        }        .timeline-item h3 { font-size: 1.4em; color: var(--dark); margin-bottom: 5px; }        .timeline-item .meta { color: var(--primary); font-weight: 600; margin-bottom: 8px; font-size: 0.95em; }        .timeline-item .company { color: var(--gray); font-size: 1.05em; margin-bottom: 12px; }        .timeline-item p, .timeline-item ul { color: var(--gray); line-height: 1.8; }        .timeline-item ul { margin-left: 20px; margin-top: 10px; }        .timeline-item li { margin-bottom: 8px; }        .skills-list {            display: grid;            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));            gap: 15px;            margin-top: 20px;        }        .skill-tag {            background: var(--light);            padding: 12px 20px;            border-radius: 10px;            color: var(--dark);            font-weight: 500;            border-left: 4px solid var(--primary);            transition: all 0.3s ease;        }        .skill-tag:hover { background: var(--primary); color: white; transform: translateX(5px); }        .diplomes-list { margin-top: 20px; }        .diplome-item {            background: var(--light);            padding: 20px;            border-radius: 10px;            margin-bottom: 15px;            border-left: 4px solid var(--primary);        }        .diplome-item h4 { color: var(--dark); font-size: 1.2em; margin-bottom: 5px; }        .diplome-item .mention { color: var(--primary); font-weight: 600; font-size: 0.95em; }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            line-height: 1.6;
-            color: var(--dark);
-            background: var(--light);
-        }
-
-        /* Header & Navigation */
-        header {
-            background: white;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 70px;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        nav {
-            display: flex;
-            gap: 40px;
-        }
-
-        nav button {
-            background: none;
-            border: none;
-            color: var(--gray);
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            padding: 8px 0;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-
-        nav button::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s ease;
-        }
-
-        nav button:hover,
-        nav button.active {
-            color: var(--primary);
-        }
-
-        nav button.active::after {
-            width: 100%;
-        }
-
-        /* Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 60px 20px;
-        }
-
-        /* Sections */
-        .section {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* CV Section */
-        .cv-hero {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            padding: 80px 40px;
-            border-radius: 20px;
-            margin-bottom: 40px;
-            display: flex;
-            align-items: center;
-            gap: 50px;
-            box-shadow: 0 20px 50px rgba(255, 152, 0, 0.2);
-        }
-
-        .cv-photo {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: white;
-            border: 6px solid rgba(255, 255, 255, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            color: var(--primary);
-            font-weight: 600;
-            flex-shrink: 0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-        }
-
-        .cv-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .cv-intro {
-            flex: 1;
-        }
-
-        .cv-intro h1 {
-            font-size: 3em;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-
-        .cv-intro .title {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            opacity: 0.9;
-            font-weight: 300;
-        }
-
-        .cv-intro .bio {
-            font-size: 1.1em;
-            line-height: 1.8;
-            opacity: 0.95;
-        }
-
-        .cv-content {
-            background: white;
-            border-radius: 20px;
-            padding: 50px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        }
-
-        .cv-section {
-            margin-bottom: 50px;
-        }
-
-        .cv-section:last-child {
-            margin-bottom: 0;
-        }
-
-        .cv-section h2 {
-            font-size: 2em;
-            color: var(--primary);
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 3px solid var(--accent);
-            display: inline-block;
-        }
-
-        .timeline-item {
-            position: relative;
-            padding-left: 40px;
-            margin-bottom: 30px;
-            border-left: 2px solid var(--accent);
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -8px;
-            top: 0;
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: var(--primary);
-            border: 3px solid white;
-            box-shadow: 0 0 0 2px var(--accent);
-        }
-
-        .timeline-item h3 {
-            font-size: 1.4em;
-            color: var(--dark);
-            margin-bottom: 5px;
-        }
-
-        .timeline-item .meta {
-            color: var(--primary);
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 0.95em;
-        }
-
-        .timeline-item .company {
-            color: var(--gray);
-            font-size: 1.05em;
-            margin-bottom: 12px;
-        }
-
-        .timeline-item p,
-        .timeline-item ul {
-            color: var(--gray);
-            line-height: 1.8;
-        }
-
-        .timeline-item ul {
-            margin-left: 20px;
-            margin-top: 10px;
-        }
-
-        .timeline-item li {
-            margin-bottom: 8px;
-        }
-
-        .skills-list {
+        /* Centres d'intérêt dans le CV */
+        .cv-interests-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .skill-tag {
-            background: var(--light);
-            padding: 12px 20px;
-            border-radius: 10px;
-            color: var(--dark);
-            font-weight: 500;
-            border-left: 4px solid var(--primary);
-            transition: all 0.3s ease;
-        }
-
-        .skill-tag:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateX(5px);
-        }
-
-        .diplomes-list {
-            margin-top: 20px;
-        }
-
-        .diplome-item {
-            background: var(--light);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            border-left: 4px solid var(--primary);
-        }
-
-        .diplome-item h4 {
-            color: var(--dark);
-            font-size: 1.2em;
-            margin-bottom: 5px;
-        }
-
-        .diplome-item .mention {
-            color: var(--primary);
-            font-weight: 600;
-            font-size: 0.95em;
-        }
-
-        /* Portfolio Section */
-        .portfolio-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .portfolio-header h1 {
-            font-size: 3em;
-            color: var(--dark);
-            margin-bottom: 15px;
-        }
-
-        .portfolio-header p {
-            font-size: 1.2em;
-            color: var(--gray);
-        }
-
-        .competences-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .competence-card {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 2px solid transparent;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .competence-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s ease;
-        }
-
-        .competence-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .competence-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(255, 152, 0, 0.15);
-            border-color: var(--primary);
-        }
-
-        .competence-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2em;
-            margin-bottom: 20px;
-        }
-
-        .competence-card h3 {
-            font-size: 1.6em;
-            color: var(--dark);
-            margin-bottom: 15px;
-        }
-
-        .competence-card p {
-            color: var(--gray);
-            line-height: 1.8;
-        }
-
-        .acquisition-status {
-            margin-top: 20px;
-            padding: 10px 15px;
-            border-radius: 8px;
-            font-size: 0.9em;
-            font-weight: 600;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .status-acquis {
-            background: #d1fae5;
-            color: #065f46;
-            border: 2px solid #10b981;
-        }
-
-        .status-encours {
-            background: #fed7aa;
-            color: #92400e;
-            border: 2px solid #f59e0b;
-        }
-
-        .status-nonacquis {
-            background: #fee2e2;
-            color: #991b1b;
-            border: 2px solid #ef4444;
-        }
-
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            display: inline-block;
-        }
-
-        .status-acquis .status-dot {
-            background: #10b981;
-        }
-
-        .status-encours .status-dot {
-            background: #f59e0b;
-        }
-
-        .status-nonacquis .status-dot {
-            background: #ef4444;
-        }
-
-        /* Projets Section */
-        .projets-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 40px;
-        }
-
-        .projet-card {
-            background: white;
-            border-radius: 20px;
-            padding: 0;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 2px solid transparent;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .projet-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(255, 152, 0, 0.15);
-            border-color: var(--primary);
-        }
-
-        .projet-image-container {
-            width: 100%;
-            height: 250px;
-            background: var(--light);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .projet-image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .projet-image-placeholder {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            color: var(--gray);
-            padding: 20px;
-            text-align: center;
-        }
-
-        .projet-image-placeholder .icon {
-            font-size: 4em;
-            opacity: 0.3;
-        }
-
-        .projet-image-placeholder .text {
-            font-size: 0.9em;
-            opacity: 0.6;
-        }
-
-        .projet-header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 25px 30px;
-            position: relative;
-        }
-
-        .projet-header h3 {
-            font-size: 1.6em;
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
-
-        .projet-header .type {
-            font-size: 0.85em;
-            opacity: 0.9;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-        }
-
-        .projet-body {
-            padding: 30px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .projet-description {
-            color: var(--gray);
-            line-height: 1.8;
-            margin-bottom: 25px;
-            font-size: 0.95em;
-        }
-
-        .projet-details {
-            margin-bottom: 25px;
-        }
-
-        .projet-detail-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            margin-bottom: 15px;
-        }
-
-        .projet-detail-item .icon {
-            width: 35px;
-            height: 35px;
-            background: var(--light);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2em;
-            flex-shrink: 0;
-        }
-
-        .projet-detail-item .content {
-            flex: 1;
-        }
-
-        .projet-detail-item .label {
-            font-weight: 600;
-            color: var(--dark);
-            margin-bottom: 3px;
-            font-size: 0.95em;
-        }
-
-        .projet-detail-item .text {
-            color: var(--gray);
-            font-size: 0.9em;
-            line-height: 1.6;
-        }
-
-        .projet-technologies {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: auto;
-            padding-top: 20px;
-        }
-
-        .tech-tag {
-            background: var(--light);
-            color: var(--dark);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: 500;
-            border: 1px solid var(--accent);
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(8px);
-            z-index: 2000;
-            animation: fadeIn 0.3s ease;
-            overflow-y: auto;
-            padding: 40px 20px;
-        }
-
-        .modal.active {
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 25px;
-            padding: 50px;
-            max-width: 900px;
-            width: 100%;
-            position: relative;
-            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            margin: auto;
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 25px;
-            right: 25px;
-            background: var(--light);
-            color: var(--gray);
-            border: none;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            font-size: 24px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .modal-close:hover {
-            background: var(--primary);
-            color: white;
-            transform: rotate(90deg);
-        }
-
-        .modal-header {
-            display: flex;
-            align-items: center;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             gap: 20px;
-            margin-bottom: 40px;
-            padding-bottom: 25px;
-            border-bottom: 2px solid var(--light);
+            margin-top: 20px;
         }
-
-        .modal-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5em;
-        }
-
-        .modal-header h2 {
-            font-size: 2.5em;
-            color: var(--dark);
-        }
-
-        .projet-item {
+        .cv-interest-item {
             background: var(--light);
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 25px;
-            border-left: 5px solid var(--primary);
-            transition: all 0.3s ease;
-        }
-
-        .projet-item:hover {
-            transform: translateX(5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .projet-item h4 {
-            font-size: 1.4em;
-            color: var(--dark);
-            margin-bottom: 15px;
-        }
-
-        .projet-detail {
-            margin-bottom: 15px;
-        }
-
-        .projet-detail strong {
-            color: var(--primary);
-            font-weight: 600;
-        }
-
-        .projet-detail p {
-            color: var(--gray);
-            margin-top: 5px;
-            line-height: 1.8;
-        }
-
-        .projet-detail ul {
-            margin-left: 20px;
-            margin-top: 5px;
-        }
-
-        .projet-detail li {
-            color: var(--gray);
-            line-height: 1.8;
-            margin-bottom: 5px;
-        }
-
-        .competences-list {
-            margin-top: 30px;
-            padding: 25px;
-            background: white;
-            border-radius: 15px;
-            border: 2px solid var(--light);
-        }
-
-        .competences-list h4 {
-            font-size: 1.3em;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-
-        .competences-list ul {
-            list-style: none;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 12px;
-        }
-
-        .competences-list li {
-            padding: 10px 15px;
-            background: var(--light);
-            border-radius: 8px;
-            color: var(--dark);
-            position: relative;
-            padding-left: 35px;
-        }
-
-        .competences-list li::before {
-            content: '✓';
-            position: absolute;
-            left: 12px;
-            color: var(--success);
-            font-weight: bold;
-        }
-
-        /* Contact Section */
-        .contact-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .contact-header h1 {
-            font-size: 3em;
-            color: var(--dark);
-            margin-bottom: 15px;
-        }
-
-        .contact-header p {
-            font-size: 1.2em;
-            color: var(--gray);
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .contact-card {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-        }
-
-        .contact-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(255, 152, 0, 0.15);
-        }
-
-        .contact-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2em;
-            margin: 0 auto 25px;
-        }
-
-        .contact-card h3 {
-            font-size: 1.4em;
-            color: var(--dark);
-            margin-bottom: 15px;
-        }
-
-        .contact-card a,
-        .contact-card p {
-            color: var(--gray);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            word-break: break-word;
-        }
-
-        .contact-card a:hover {
-            color: var(--primary);
-        }
-
-        .interests-section {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        }
-
-        .interests-section h2 {
-            font-size: 2em;
-            color: var(--primary);
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .interests-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .interest-item {
-            background: var(--light);
-            padding: 25px;
+            padding: 25px 20px;
             border-radius: 15px;
             text-align: center;
             border-top: 4px solid var(--primary);
+            transition: all 0.3s ease;
         }
-
-        .interest-item .icon {
-            font-size: 3em;
-            margin-bottom: 15px;
+        .cv-interest-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 152, 0, 0.15);
         }
+        .cv-interest-item .icon { font-size: 2.5em; margin-bottom: 12px; }
+        .cv-interest-item h4 { color: var(--dark); font-size: 1.1em; font-weight: 600; }
 
-        .interest-item h4 {
+        /* Portfolio */
+        .portfolio-header { text-align: center; margin-bottom: 60px; }
+        .portfolio-header h1 { font-size: 3em; color: var(--dark); margin-bottom: 15px; }
+        .portfolio-header p { font-size: 1.2em; color: var(--gray); }
+        .competences-grid {            display: grid;            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));            gap: 30px;            margin-bottom: 40px;        }        .competence-card {            background: white;            border-radius: 20px;            padding: 40px;            cursor: pointer;            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);            border: 2px solid transparent;            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);            position: relative;            overflow: hidden;        }        .competence-card::before {            content: '';            position: absolute;            top: 0; left: 0;            width: 100%; height: 4px;            background: linear-gradient(90deg, var(--primary), var(--accent));            transform: scaleX(0); transform-origin: left;            transition: transform 0.4s ease;        }        .competence-card:hover::before { transform: scaleX(1); }        .competence-card:hover {            transform: translateY(-10px);            box-shadow: 0 20px 40px rgba(255, 152, 0, 0.15);            border-color: var(--primary);        }        .competence-icon {            width: 70px; height: 70px;            background: linear-gradient(135deg, var(--primary), var(--accent));            border-radius: 15px;            display: flex; align-items: center; justify-content: center;            font-size: 2em; margin-bottom: 20px;        }        .competence-card h3 { font-size: 1.6em; color: var(--dark); margin-bottom: 15px; }        .competence-card p { color: var(--gray); line-height: 1.8; }
+
+        /* Projets */
+        .projets-grid {            display: grid;            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));            gap: 40px;        }        .projet-card {            background: white; border-radius: 20px; padding: 0; overflow: hidden;            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);            border: 2px solid transparent; display: flex; flex-direction: column;        }        .projet-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(255, 152, 0, 0.15); border-color: var(--primary); }        .projet-image-container { width: 100%; height: 250px; background: var(--light); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }        .projet-image-container img { width: 100%; height: 100%; object-fit: cover; }        .projet-image-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px; color: var(--gray); padding: 20px; text-align: center; }        .projet-image-placeholder .icon { font-size: 4em; opacity: 0.3; }        .projet-image-placeholder .text { font-size: 0.9em; opacity: 0.6; }        .projet-header { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 25px 30px; }        .projet-header h3 { font-size: 1.6em; margin-bottom: 8px; font-weight: 700; }        .projet-header .type { font-size: 0.85em; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }        .projet-body { padding: 30px; flex: 1; display: flex; flex-direction: column; }        .projet-description { color: var(--gray); line-height: 1.8; margin-bottom: 25px; font-size: 0.95em; }        .projet-detail-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 15px; }        .projet-detail-item .icon { width: 35px; height: 35px; background: var(--light); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2em; flex-shrink: 0; }        .projet-detail-item .content { flex: 1; }        .projet-detail-item .label { font-weight: 600; color: var(--dark); margin-bottom: 3px; font-size: 0.95em; }        .projet-detail-item .text { color: var(--gray); font-size: 0.9em; line-height: 1.6; }        .projet-technologies { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 20px; }        .tech-tag { background: var(--light); color: var(--dark); padding: 6px 14px; border-radius: 20px; font-size: 0.85em; font-weight: 500; border: 1px solid var(--accent); }
+
+        /* Modal */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); z-index: 2000; animation: fadeIn 0.3s ease; overflow-y: auto; padding: 40px 20px; }        .modal.active { display: flex; align-items: flex-start; justify-content: center; }        .modal-content { background: white; border-radius: 25px; padding: 50px; max-width: 900px; width: 100%; position: relative; animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1); margin: auto; }        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }        .modal-close { position: absolute; top: 25px; right: 25px; background: var(--light); color: var(--gray); border: none; width: 45px; height: 45px; border-radius: 50%; font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }        .modal-close:hover { background: var(--primary); color: white; transform: rotate(90deg); }        .modal-header { display: flex; align-items: center; gap: 20px; margin-bottom: 40px; padding-bottom: 25px; border-bottom: 2px solid var(--light); }        .modal-icon { width: 80px; height: 80px; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2.5em; }        .modal-header h2 { font-size: 2.5em; color: var(--dark); }        .projet-item { background: var(--light); border-radius: 15px; padding: 30px; margin-bottom: 25px; border-left: 5px solid var(--primary); transition: all 0.3s ease; }        .projet-item:hover { transform: translateX(5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }        .projet-item h4 { font-size: 1.4em; color: var(--dark); margin-bottom: 15px; }        .projet-detail { margin-bottom: 15px; }        .projet-detail strong { color: var(--primary); font-weight: 600; }        .projet-detail p { color: var(--gray); margin-top: 5px; line-height: 1.8; }        .projet-detail ul { margin-left: 20px; margin-top: 5px; }        .projet-detail li { color: var(--gray); line-height: 1.8; margin-bottom: 5px; }        .acquisition-status { margin-top: 20px; padding: 10px 15px; border-radius: 8px; font-size: 0.9em; font-weight: 600; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; }        .status-acquis { background: #d1fae5; color: #065f46; border: 2px solid #10b981; }        .status-nonacquis { background: #fee2e2; color: #991b1b; border: 2px solid #ef4444; }        .status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }        .status-acquis .status-dot { background: #10b981; }        .status-nonacquis .status-dot { background: #ef4444; }
+
+        /* Contact */
+        .contact-header { text-align: center; margin-bottom: 60px; }        .contact-header h1 { font-size: 3em; color: var(--dark); margin-bottom: 15px; }        .contact-header p { font-size: 1.2em; color: var(--gray); }        .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-bottom: 40px; }        .contact-card { background: white; border-radius: 20px; padding: 40px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: all 0.3s ease; }        .contact-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(255,152,0,0.15); }        .contact-icon { width: 70px; height: 70px; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2em; margin: 0 auto 25px; }        .contact-card h3 { font-size: 1.4em; color: var(--dark); margin-bottom: 15px; }        .contact-card a, .contact-card p { color: var(--gray); text-decoration: none; transition: color 0.3s ease; word-break: break-word; }        .contact-card a:hover { color: var(--primary); }
+
+        /* Accordion AC */
+        .ac-item {
+            border-radius: 10px;
+            margin-bottom: 8px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            transition: box-shadow 0.2s ease;
+        }
+        .ac-item:hover {
+            box-shadow: 0 3px 12px rgba(255, 152, 0, 0.12);
+        }
+        .ac-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            cursor: pointer;
+            background: white;
+            user-select: none;
+        }
+        .ac-header span:not(.ac-arrow) {
+            flex: 1;
+            font-size: 0.95em;
             color: var(--dark);
-            font-size: 1.2em;
+        }
+        .ac-arrow {
+            font-size: 0.75em;
+            color: var(--gray);
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+        .ac-item.open .ac-arrow {
+            transform: rotate(180deg);
+        }
+        .ac-body {
+            display: none;
+            padding: 14px 20px 16px 20px;
+            background: #fffbf5;
+            border-top: 1px solid #ffe0b2;
+            color: var(--gray);
+            font-size: 0.92em;
+            line-height: 1.7;
+            animation: fadeIn 0.2s ease;
+        }
+        .ac-item.open .ac-body {
+            display: block;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                height: auto;
-                padding: 20px;
-            }
-
-            nav {
-                gap: 20px;
-                margin-top: 15px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .cv-hero {
-                flex-direction: column;
-                text-align: center;
-                padding: 50px 30px;
-            }
-
-            .cv-intro h1 {
-                font-size: 2em;
-            }
-
-            .cv-intro .title {
-                font-size: 1.2em;
-            }
-
-            .cv-content {
-                padding: 30px 25px;
-            }
-
-            .cv-section h2 {
-                font-size: 1.6em;
-            }
-
-            .portfolio-header h1,
-            .contact-header h1 {
-                font-size: 2em;
-            }
-
-            .modal-content {
-                padding: 30px 25px;
-            }
-
-            .modal-header {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .modal-header h2 {
-                font-size: 2em;
-            }
-
-            .projets-grid {
-                grid-template-columns: 1fr;
-            }
+            .nav-container { flex-direction: column; height: auto; padding: 20px; }
+            nav { gap: 20px; margin-top: 15px; flex-wrap: wrap; justify-content: center; }
+            .cv-hero { flex-direction: column; text-align: center; padding: 50px 30px; }
+            .cv-intro h1 { font-size: 2em; }
+            .cv-intro .title { font-size: 1.2em; }
+            .cv-content { padding: 30px 25px; }
+            .cv-section h2 { font-size: 1.6em; }
+            .portfolio-header h1, .contact-header h1 { font-size: 2em; }
+            .modal-content { padding: 30px 25px; }
+            .modal-header { flex-direction: column; text-align: center; }
+            .modal-header h2 { font-size: 2em; }
+            .projets-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -948,111 +117,86 @@
     </header>
 
     <div class="container">
+
         <!-- Section CV -->
         <section id="cv" class="section active">
             <div class="cv-hero">
                 <div class="cv-photo">
-                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: var(--primary); font-size: 14px;">
-                        <div style="font-size: 3em; margin-bottom: 10px;">📷</div>
-                        <div style="text-align: center; line-height: 1.4;">Insérez votre<br>photo ici</div>
-                        <div style="margin-top: 10px; font-size: 12px; opacity: 0.7;">200x200px</div>
+                    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--primary);font-size:14px;">
+                        <div style="font-size:3em;margin-bottom:10px;">📷</div>
+                        <div style="text-align:center;line-height:1.4;">Insérez votre<br>photo ici</div>
+                        <div style="margin-top:10px;font-size:12px;opacity:0.7;">200x200px</div>
                     </div>
                 </div>
                 <div class="cv-intro">
                     <h1>Thomas Hochart</h1>
                     <div class="title">Étudiant BUT GEII - Électronique & Systèmes Embarqués</div>
                     <div class="bio">
-                        Je suis actuellement en deuxième année de BUT GEII (Génie Électrique et Informatique Industrielle). 
-                        Passionné par l'électronique et l'avionique, je souhaite devenir technicien électronique sur systèmes 
-                        embarqués. Mon parcours combine une solide formation théorique avec des expériences pratiques en maintenance 
-                        aéronautique.
+                        Je suis actuellement en deuxième année de BUT GEII (Génie Électrique et Informatique Industrielle).
+                        Passionné par l'électronique et l'avionique, je souhaite devenir technicien électronique sur systèmes
+                        embarqués. Mon parcours combine une solide formation théorique avec des expériences pratiques en maintenance aéronautique.
                     </div>
                 </div>
             </div>
 
             <div class="cv-content">
+
                 <div class="cv-section">
                     <h2>Expériences Professionnelles</h2>
-                    
                     <div class="timeline-item">
                         <h3>Stage Avionique Maintenance</h3>
+                        <div class="meta">2023 — Au cours de la terminale</div>
                         <div class="company">BAN de Lanvéoc-Poulmic 33F</div>
-                        <p>
-                            Stage de maintenance avionique sur hélicoptères NH 90 (Caïman). Diagnostic et réparation 
-                            de systèmes électroniques embarqués, lecture de schémas avioniques complexes, et participation 
-                            aux opérations de maintenance préventive et corrective.
-                        </p>
+                        <p>Stage de maintenance avionique sur hélicoptères NH 90 (Caïman). Diagnostic et réparation de systèmes électroniques embarqués, lecture de schémas avioniques complexes, et participation aux opérations de maintenance préventive et corrective.</p>
                     </div>
-
                     <div class="timeline-item">
                         <h3>Stage Avionique Maintenance</h3>
-                        <div class="company">BAN de Lann-Bihoué 24F</div>
-                        <p>
-                            Stage de maintenance avionique sur avions Falcon 50. Intervention sur les systèmes électroniques 
-                            de bord, tests et vérifications des équipements avioniques, et collaboration avec les équipes 
-                            de maintenance.
-                        </p>
+                        <div class="meta">2022 — Début de terminale</div>
+                        <div class="company">BAN de Lanvéoc-Poulmic 33F</div>
+                        <p>Premier stage de maintenance avionique sur hélicoptères NH 90 (Caïman). Découverte des systèmes électroniques embarqués et des procédures de maintenance en milieu militaire.</p>
                     </div>
-
+                    <div class="timeline-item">
+                        <h3>Stage Avionique Maintenance</h3>
+                        <div class="meta">2022 — Fin de première</div>
+                        <div class="company">BAN de Lann-Bihoué 24F</div>
+                        <p>Stage de maintenance avionique sur avions Falcon 50. Intervention sur les systèmes électroniques de bord, tests et vérifications des équipements avioniques, et collaboration avec les équipes de maintenance.</p>
+                    </div>
                     <div class="timeline-item">
                         <h3>Stage Maintenance Aéronautique</h3>
+                        <div class="meta">2021 — Début de première</div>
                         <div class="company">ENAC - École Nationale de l'Aviation Civile, Biscarrosse</div>
-                        <p>
-                            Maintenance sur avions de type TB10 et TB20. Découverte des procédures de maintenance 
-                            en environnement de formation professionnelle, manipulation d'équipements de test et diagnostic.
-                        </p>
+                        <p>Maintenance sur avions de type TB10 et TB20. Découverte des procédures de maintenance en environnement de formation professionnelle, manipulation d'équipements de test et diagnostic.</p>
                     </div>
-
                     <div class="timeline-item">
                         <h3>Stage Mécanique Aéronautique</h3>
+                        <div class="meta">2021 — Fin de seconde</div>
                         <div class="company">Aéroclub de Lorient</div>
-                        <p>
-                            Mécanique de base et maintenance sur avions de type DR220, DR221, DR400, PA28 et CAP10. 
-                            Apprentissage des fondamentaux de la maintenance aéronautique et des procédures de sécurité.
-                        </p>
+                        <p>Mécanique de base et maintenance sur avions de type DR220, DR221, DR400, PA28 et CAP10. Apprentissage des fondamentaux de la maintenance aéronautique et des procédures de sécurité.</p>
                     </div>
-
                     <div class="timeline-item">
                         <h3>Job d'été</h3>
+                        <div class="meta">Été 2023 & Été 2024</div>
                         <div class="company">Centre Hospitalier des Pays de Morlaix</div>
-                        <p>
-                            Expérience professionnelle dans le milieu hospitalier développant le sens des responsabilités 
-                            et l'adaptabilité.
-                        </p>
+                        <p>Expérience professionnelle dans le milieu hospitalier développant le sens des responsabilités et l'adaptabilité.</p>
                     </div>
                 </div>
 
                 <div class="cv-section">
                     <h2>Formation</h2>
-                    
                     <div class="timeline-item">
                         <h3>BUT GEII - Génie Électrique et Informatique Industrielle</h3>
                         <div class="meta">2022 - 2025 (en cours - 2ème année)</div>
                         <div class="company">IUT</div>
-                        <p>
-                            Formation en électronique, systèmes embarqués, informatique industrielle et automatisme. 
-                            Acquisition de compétences techniques en conception, vérification, maintenance, réalisation 
-                            et programmation de systèmes électroniques.
-                        </p>
+                        <p>Formation en électronique, systèmes embarqués, informatique industrielle et automatisme. Acquisition de compétences techniques en conception, vérification, maintenance, réalisation et programmation de systèmes électroniques.</p>
                     </div>
-
                     <div class="timeline-item">
                         <h3>Baccalauréat Professionnel Aéronautique</h3>
                         <div class="meta">Option Avionique - Mention Bien</div>
-                        <p>
-                            Formation spécialisée en avionique avec apprentissage des systèmes électroniques embarqués 
-                            dans l'aéronautique, maintenance et diagnostic des équipements de bord.
-                        </p>
+                        <p>Formation spécialisée en avionique avec apprentissage des systèmes électroniques embarqués dans l'aéronautique, maintenance et diagnostic des équipements de bord.</p>
                     </div>
-
                     <div class="diplomes-list">
-                        <div class="diplome-item">
-                            <h4>BIA - Brevet d'Initiation Aéronautique</h4>
-                        </div>
-                        <div class="diplome-item">
-                            <h4>Permis de conduire</h4>
-                            <p class="mention">Véhicule personnel</p>
-                        </div>
+                        <div class="diplome-item"><h4>BIA - Brevet d'Initiation Aéronautique</h4></div>
+                        <div class="diplome-item"><h4>Permis de conduire</h4><p class="mention">Véhicule personnel</p></div>
                     </div>
                 </div>
 
@@ -1083,6 +227,26 @@
                         <div class="skill-tag">✈️ Anglais technique aéronautique</div>
                     </div>
                 </div>
+
+                <!-- CENTRES D'INTÉRÊT déplacés ici -->
+                <div class="cv-section">
+                    <h2>Centres d'intérêt</h2>
+                    <div class="cv-interests-grid">
+                        <div class="cv-interest-item">
+                            <div class="icon">🎨</div>
+                            <h4>Dessin</h4>
+                        </div>
+                        <div class="cv-interest-item">
+                            <div class="icon">🏊</div>
+                            <h4>Natation</h4>
+                        </div>
+                        <div class="cv-interest-item">
+                            <div class="icon">⛵</div>
+                            <h4>Sports nautiques</h4>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -1092,13 +256,9 @@
                 <h1>Projets SAE</h1>
                 <p>Situations d'Apprentissage et d'Évaluation réalisées durant mon cursus</p>
             </div>
-
             <div class="projets-grid">
-                <!-- Carte Thermostat -->
                 <div class="projet-card">
                     <div class="projet-image-container">
-                        <!-- Insérez votre image ici -->
-                        <!-- <img src="chemin/vers/votre/image-thermostat.jpg" alt="Carte Thermostat"> -->
                         <div class="projet-image-placeholder">
                             <div class="icon">🌡️</div>
                             <div class="text">Insérez une photo de votre carte thermostat<br>(recommandé: 800x500px)</div>
@@ -1109,24 +269,15 @@
                         <div class="type">Projet SAE - Électronique</div>
                     </div>
                     <div class="projet-body">
-                        <p class="projet-description">
-                            Montage et programmation d'une carte thermostat électronique capable de réguler 
-                            la température en mode chauffage ou climatisation selon la consigne définie.
-                        </p>
+                        <p class="projet-description">Montage et programmation d'une carte thermostat électronique capable de réguler la température en mode chauffage ou climatisation selon la consigne définie.</p>
                         <div class="projet-details">
                             <div class="projet-detail-item">
                                 <div class="icon">🎯</div>
-                                <div class="content">
-                                    <div class="label">Objectif</div>
-                                    <div class="text">Monter une carte thermostat et la programmer pour capter la température, puis chauffer ou refroidir selon la consigne et le mode sélectionné (chauffage/climatisation)</div>
-                                </div>
+                                <div class="content"><div class="label">Objectif</div><div class="text">Monter une carte thermostat et la programmer pour capter la température, puis chauffer ou refroidir selon la consigne et le mode sélectionné</div></div>
                             </div>
                             <div class="projet-detail-item">
                                 <div class="icon">🔧</div>
-                                <div class="content">
-                                    <div class="label">Réalisations</div>
-                                    <div class="text">Montage de la carte électronique, programmation du microcontrôleur en MicroPython pour la gestion de la régulation thermique, calibration des capteurs de température, tests en modes chauffage et climatisation</div>
-                                </div>
+                                <div class="content"><div class="label">Réalisations</div><div class="text">Montage de la carte électronique, programmation du microcontrôleur en MicroPython pour la gestion de la régulation thermique, calibration des capteurs, tests en modes chauffage et climatisation</div></div>
                             </div>
                         </div>
                         <div class="projet-technologies">
@@ -1134,16 +285,12 @@
                             <span class="tech-tag">Capteur température</span>
                             <span class="tech-tag">MicroPython</span>
                             <span class="tech-tag">Régulation thermique</span>
-                            <span class="tech-tag">Chauffage/Climatisation</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Vérification Chargeur -->
                 <div class="projet-card">
                     <div class="projet-image-container">
-                        <!-- Insérez votre image ici -->
-                        <!-- <img src="chemin/vers/votre/image-chargeur.jpg" alt="Vérification Chargeur"> -->
                         <div class="projet-image-placeholder">
                             <div class="icon">🔌</div>
                             <div class="text">Insérez une photo de vos mesures sur le chargeur<br>(recommandé: 800x500px)</div>
@@ -1154,30 +301,20 @@
                         <div class="type">Projet SAE - Métrologie</div>
                     </div>
                     <div class="projet-body">
-                        <p class="projet-description">
-                            Analyse et vérification méthodique des caractéristiques électriques d'un chargeur de téléphone 
-                            à chaque étage de conversion, du transformateur jusqu'à la sortie régulée.
-                        </p>
+                        <p class="projet-description">Analyse et vérification méthodique des caractéristiques électriques d'un chargeur de téléphone à chaque étage de conversion.</p>
                         <div class="projet-details">
                             <div class="projet-detail-item">
                                 <div class="icon">🎯</div>
-                                <div class="content">
-                                    <div class="label">Objectif</div>
-                                    <div class="text">Valider la conformité et analyser le fonctionnement de chaque étage du dispositif de charge</div>
-                                </div>
+                                <div class="content"><div class="label">Objectif</div><div class="text">Valider la conformité et analyser le fonctionnement de chaque étage du dispositif de charge</div></div>
                             </div>
                             <div class="projet-detail-item">
                                 <div class="icon">📊</div>
-                                <div class="content">
-                                    <div class="label">Réalisations</div>
-                                    <div class="text">Tests et mesures à chaque étape : sortie du transformateur (tension alternative), sortie du pont de diodes (tension redressée), sortie des régulateurs (tension stabilisée). Analyse des ondulations résiduelles, mesures de courant, vérification des régimes transitoires et rédaction d'un rapport de conformité détaillé.</div>
-                                </div>
+                                <div class="content"><div class="label">Réalisations</div><div class="text">Tests et mesures à chaque étape, analyse des ondulations résiduelles, mesures de courant, vérification des régimes transitoires et rédaction d'un rapport de conformité.</div></div>
                             </div>
                         </div>
                         <div class="projet-technologies">
                             <span class="tech-tag">Oscilloscope</span>
                             <span class="tech-tag">Multimètre</span>
-                            <span class="tech-tag">Analyse de signaux</span>
                             <span class="tech-tag">Pont de diodes</span>
                             <span class="tech-tag">Régulateurs</span>
                             <span class="tech-tag">Normes électriques</span>
@@ -1185,11 +322,8 @@
                     </div>
                 </div>
 
-                <!-- Robot Suiveur de Ligne -->
                 <div class="projet-card">
                     <div class="projet-image-container">
-                        <!-- Insérez votre image ici -->
-                        <!-- <img src="chemin/vers/votre/image-robot.jpg" alt="Robot Suiveur de Ligne"> -->
                         <div class="projet-image-placeholder">
                             <div class="icon">🤖</div>
                             <div class="text">Insérez une photo de votre robot suiveur de ligne<br>(recommandé: 800x500px)</div>
@@ -1200,24 +334,15 @@
                         <div class="type">Projet SAE - Systèmes Embarqués</div>
                     </div>
                     <div class="projet-body">
-                        <p class="projet-description">
-                            Conception et programmation d'un robot autonome capable de suivre une ligne tracée 
-                            au sol en temps réel.
-                        </p>
+                        <p class="projet-description">Conception et programmation d'un robot autonome capable de suivre une ligne tracée au sol en temps réel.</p>
                         <div class="projet-details">
                             <div class="projet-detail-item">
                                 <div class="icon">🎯</div>
-                                <div class="content">
-                                    <div class="label">Objectif</div>
-                                    <div class="text">Développer un système embarqué autonome avec asservissement</div>
-                                </div>
+                                <div class="content"><div class="label">Objectif</div><div class="text">Développer un système embarqué autonome avec asservissement</div></div>
                             </div>
                             <div class="projet-detail-item">
                                 <div class="icon">⚙️</div>
-                                <div class="content">
-                                    <div class="label">Réalisations</div>
-                                    <div class="text">Conception PCB carte capteur sur Altium Designer, câblage moteurs et capteurs, programmation en MicroPython de l'algorithme de suivi, calibration capteurs optiques, tests de parcours</div>
-                                </div>
+                                <div class="content"><div class="label">Réalisations</div><div class="text">Conception PCB carte capteur sur Altium Designer, câblage moteurs et capteurs, programmation en MicroPython de l'algorithme de suivi, calibration capteurs optiques, tests de parcours</div></div>
                             </div>
                         </div>
                         <div class="projet-technologies">
@@ -1230,11 +355,8 @@
                     </div>
                 </div>
 
-                <!-- Récepteur DTMF Anti-Vol -->
                 <div class="projet-card">
                     <div class="projet-image-container">
-                        <!-- Insérez votre image ici -->
-                        <!-- <img src="chemin/vers/votre/image-dtmf.jpg" alt="Récepteur DTMF Anti-Vol"> -->
                         <div class="projet-image-placeholder">
                             <div class="icon">📡</div>
                             <div class="text">Insérez une photo de votre système anti-vol DTMF<br>(recommandé: 800x500px)</div>
@@ -1245,24 +367,15 @@
                         <div class="type">Projet SAE - Télécommunications</div>
                     </div>
                     <div class="projet-body">
-                        <p class="projet-description">
-                            Développement d'un système de réception de signaux DTMF pour sécuriser un casier 
-                            de pêche contre le vol.
-                        </p>
+                        <p class="projet-description">Développement d'un système de réception de signaux DTMF pour sécuriser un casier de pêche contre le vol.</p>
                         <div class="projet-details">
                             <div class="projet-detail-item">
                                 <div class="icon">🎯</div>
-                                <div class="content">
-                                    <div class="label">Objectif</div>
-                                    <div class="text">Créer un système d'alarme activable à distance par tonalités téléphoniques</div>
-                                </div>
+                                <div class="content"><div class="label">Objectif</div><div class="text">Créer un système d'alarme activable à distance par tonalités téléphoniques</div></div>
                             </div>
                             <div class="projet-detail-item">
                                 <div class="icon">🔐</div>
-                                <div class="content">
-                                    <div class="label">Réalisations</div>
-                                    <div class="text">Décodage signaux DTMF, programmation en MicroPython de la logique de sécurité, intégration capteurs d'intrusion, tests en conditions réelles</div>
-                                </div>
+                                <div class="content"><div class="label">Réalisations</div><div class="text">Décodage signaux DTMF, programmation en MicroPython de la logique de sécurité, intégration capteurs d'intrusion, tests en conditions réelles</div></div>
                             </div>
                         </div>
                         <div class="projet-technologies">
@@ -1283,23 +396,19 @@
                 <h1>Portfolio par Compétences</h1>
                 <p>Compétences acquises durant mon cursus de BUT GEII</p>
             </div>
-
             <div class="competences-grid">
                 <div class="competence-card" onclick="openModal('concevoir')">
                     <div class="competence-icon">💡</div>
                     <h3>Concevoir</h3>
                 </div>
-
                 <div class="competence-card" onclick="openModal('verifier')">
                     <div class="competence-icon">✓</div>
                     <h3>Vérifier</h3>
                 </div>
-
                 <div class="competence-card" onclick="openModal('maintenir')">
                     <div class="competence-icon">🔧</div>
                     <h3>Maintenir</h3>
                 </div>
-
                 <div class="competence-card" onclick="openModal('implanter')">
                     <div class="competence-icon">🛠️</div>
                     <h3>Implanter</h3>
@@ -1313,97 +422,71 @@
                 <h1>Me Contacter</h1>
                 <p>N'hésitez pas à me contacter pour discuter d'opportunités de stage ou d'alternance</p>
             </div>
-
             <div class="contact-grid">
                 <div class="contact-card">
                     <div class="contact-icon">📧</div>
                     <h3>Email</h3>
-                    <a href="/cdn-cgi/l/email-protection#790d111614180a5711161a11180b0d391c01181409151c571a1614"><span class="__cf_email__" data-cfemail="86f2eee9ebe7f5a8eee9e5eee7f4f2c6e3fee7ebf6eae3a8e5e9eb">[email&#160;protected]</span></a>
+                    <a href="/cdn-cgi/l/email-protection#493d212624283a6721262a21283b3d092c31282439252c672a2624"><span class="__cf_email__" data-cfemail="4034282f2d21336e282f2328213234002538212d302c256e232f2d">[email&#160;protected]</span></a>
                 </div>
-
                 <div class="contact-card">
                     <div class="contact-icon">📱</div>
                     <h3>Téléphone</h3>
                     <a href="tel:+33662369701">06 62 36 97 01</a>
                 </div>
-
                 <div class="contact-card">
                     <div class="contact-icon">📍</div>
                     <h3>Localisation</h3>
                     <p>Bretagne, France</p>
                 </div>
-
                 <div class="contact-card">
                     <div class="contact-icon">🎓</div>
                     <h3>Formation</h3>
                     <p>BUT GEII - 2ème année</p>
                 </div>
             </div>
-
-            <div class="interests-section" style="margin-top: 40px;">
-                <h2>Centres d'intérêt</h2>
-                <div class="interests-grid">
-                    <div class="interest-item">
-                        <div class="icon">🎨</div>
-                        <h4>Dessin</h4>
-                    </div>
-                    <div class="interest-item">
-                        <div class="icon">🏊</div>
-                        <h4>Natation</h4>
-                    </div>
-                    <div class="interest-item">
-                        <div class="icon">⛵</div>
-                        <h4>Sports nautiques</h4>
-                    </div>
-                </div>
-            </div>
         </section>
+
     </div>
 
     <!-- Modals -->
     <div id="modal-concevoir" class="modal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('concevoir')">×</button>
-            
-            <div class="modal-header">
-                <div class="modal-icon">💡</div>
-                <h2>Concevoir</h2>
-            </div>
-
+            <div class="modal-header"><div class="modal-icon">💡</div><h2>Concevoir</h2></div>
             <div class="projet-item">
                 <h4>Apprentissages Critiques</h4>
                 <div class="projet-detail">
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div class="acquisition-status status-nonacquis" style="width: 150px; margin: 0;">Non acquis</div>
-                        <span><strong>AC11.01</strong> - Produire une analyse fonctionnelle d'un système simple</span>
+                    <div class="ac-item" onclick="toggleAC(this)">
+                        <div class="ac-header"><div class="acquisition-status status-acquis"><span class="status-dot"></span>Acquis</div><span><strong>AC11.01</strong> - Produire une analyse fonctionnelle d'un système simple</span><span class="ac-arrow">▼</span></div>
+                        <div class="ac-body">Votre explication pour AC11.01 — décrivez ici ce que vous avez réalisé pour acquérir cette compétence.</div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div class="acquisition-status status-nonacquis" style="width: 150px; margin: 0;">Non acquis</div>
-                        <span><strong>AC11.02</strong> - Réaliser un prototype pour des solutions techniques matériel et/ou logiciel</span>
+                    <div class="ac-item" onclick="toggleAC(this)">
+                        <div class="ac-header"><div class="acquisition-status status-acquis"><span class="status-dot"></span>Acquis</div><span><strong>AC11.02</strong> - Réaliser un prototype pour des solutions techniques matériel et/ou logiciel</span><span class="ac-arrow">▼</span></div>
+                        <div class="ac-body">Votre explication pour AC11.02 — décrivez ici ce que vous avez réalisé pour acquérir cette compétence.</div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div class="acquisition-status status-nonacquis" style="width: 150px; margin: 0;">Non acquis</div>
-                        <span><strong>AC11.03</strong> - Rédiger un dossier de fabrication à partir d'un dossier de conception</span>
+                    <div class="ac-item" onclick="toggleAC(this)">
+                        <div class="ac-header"><div class="acquisition-status status-acquis"><span class="status-dot"></span>Acquis</div><span><strong>AC11.03</strong> - Rédiger un dossier de fabrication à partir d'un dossier de conception</span><span class="ac-arrow">▼</span></div>
+                        <div class="ac-body">Votre explication pour AC11.03 — décrivez ici ce que vous avez réalisé pour acquérir cette compétence.</div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div class="acquisition-status status-nonacquis" style="width: 150px; margin: 0;">Non acquis</div>
-                        <span><strong>AC21.01</strong> - Proposer des solutions techniques liées à l'analyse fonctionnelle</span>
+                    <div class="ac-item" onclick="toggleAC(this)">
+                        <div class="ac-header"><div class="acquisition-status status-acquis"><span class="status-dot"></span>Acquis</div><span><strong>AC21.01</strong> - Proposer des solutions techniques liées à l'analyse fonctionnelle</span><span class="ac-arrow">▼</span></div>
+                        <div class="ac-body">Votre explication pour AC21.01 — décrivez ici ce que vous avez réalisé pour acquérir cette compétence.</div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div class="acquisition-status status-nonacquis" style="width: 150px; margin: 0;">Non acquis</div>
-                        <span><strong>AC21.02</strong> - Dérisquer les solutions techniques retenues</span>
+                    <div class="ac-item" onclick="toggleAC(this)">
+                        <div class="ac-header"><div class="acquisition-status status-acquis"><span class="status-dot"></span>Acquis</div><span><strong>AC21.02</strong> - Dérisquer les solutions techniques retenues</span><span class="ac-arrow">▼</span></div>
+                        <div class="ac-body">Votre explication pour AC21.02 — décrivez ici ce que vous avez réalisé pour acquérir cette compétence.</div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div class="acquisition-status status-nonacquis" style="width: 150px; margin: 0;">Non acquis</div>
-                        <span><strong>AC31.01</strong> - Contribuer à la rédaction d'un cahier des charges</span>
+                    <div class="ac-item" onclick="toggleAC(this)">
+                        <div class="ac-header"><div class="acquisition-status status-nonacquis"><span class="status-dot"></span>Non acquis</div><span><strong>AC31.01</strong> - Contribuer à la rédaction d'un cahier des charges</span><span class="ac-arrow">▼</span></div>
+                        <div class="ac-body">Votre explication pour AC31.01 — décrivez ici ce que vous prévoyez de faire pour acquérir cette compétence.</div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div class="acquisition-status status-nonacquis" style="width: 150px; margin: 0;">Non acquis</div>
-                        <span><strong>AC31.02</strong> - Prouver la pertinence de ses choix technologiques</span>
+                    <div class="ac-item" onclick="toggleAC(this)">
+                        <div class="ac-header"><div class="acquisition-status status-nonacquis"><span class="status-dot"></span>Non acquis</div><span><strong>AC31.02</strong> - Prouver la pertinence de ses choix technologiques</span><span class="ac-arrow">▼</span></div>
+                        <div class="ac-body">Votre explication pour AC31.02 — décrivez ici ce que vous prévoyez de faire pour acquérir cette compétence.</div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div class="acquisition-status status-nonacquis" style="width: 150px; margin: 0;">Non acquis</div>
-                        <span><strong>AC31.03</strong> - Rédiger un dossier de reconception</span>
+                    <div class="ac-item" onclick="toggleAC(this)">
+                        <div class="ac-header"><div class="acquisition-status status-nonacquis"><span class="status-dot"></span>Non acquis</div><span><strong>AC31.03</strong> - Rédiger un dossier de reconception</span><span class="ac-arrow">▼</span></div>
+                        <div class="ac-body">Votre explication pour AC31.03 — décrivez ici ce que vous prévoyez de faire pour acquérir cette compétence.</div>
                     </div>
                 </div>
             </div>
@@ -1413,46 +496,41 @@
     <div id="modal-verifier" class="modal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('verifier')">×</button>
-            
-            <div class="modal-header">
-                <div class="modal-icon">✓</div>
-                <h2>Vérifier</h2>
-            </div>
-
+            <div class="modal-header"><div class="modal-icon">✓</div><h2>Vérifier</h2></div>
             <div class="projet-item">
                 <h4>Apprentissages Critiques</h4>
                 <div class="projet-detail">
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div class="acquisition-status status-nonacquis" style="width: 150px; margin: 0;">Non acquis</div>
-                        <span><strong>AC12.01</strong> - Appliquer une procédure d'essais</span>
+                    <div class="ac-item" onclick="toggleAC(this)">
+                        <div class="ac-header"><div class="acquisition-status status-acquis"><span class="status-dot"></span>Acquis</div><span><strong>AC12.01</strong> - Appliquer une procédure d'essais</span><span class="ac-arrow">▼</span></div>
+                        <div class="ac-body">Votre explication pour AC12.01 — décrivez ici ce que vous avez réalisé pour acquérir cette compétence.</div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div class="acquisition-status status-nonacquis" style="width: 150px; margin: 0;">Non acquis</div>
-                        <span><strong>AC12.02</strong> - Identifier un dysfonctionnement</span>
+                    <div class="ac-item" onclick="toggleAC(this)">
+                        <div class="ac-header"><div class="acquisition-status status-acquis"><span class="status-dot"></span>Acquis</div><span><strong>AC12.02</strong> - Identifier un dysfonctionnement</span><span class="ac-arrow">▼</span></div>
+                        <div class="ac-body">Votre explication pour AC12.02 — décrivez ici ce que vous avez réalisé pour acquérir cette compétence.</div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div class="acquisition-status status-nonacquis" style="width: 150px; margin: 0;">Non acquis</div>
-                        <span><strong>AC12.03</strong> - Décrire un dysfonctionnement</span>
+                    <div class="ac-item" onclick="toggleAC(this)">
+                        <div class="ac-header"><div class="acquisition-status status-acquis"><span class="status-dot"></span>Acquis</div><span><strong>AC12.03</strong> - Décrire un dysfonctionnement</span><span class="ac-arrow">▼</span></div>
+                        <div class="ac-body">Votre explication pour AC12.03 — décrivez ici ce que vous avez réalisé pour acquérir cette compétence.</div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div class="acquisition-status status-nonacquis" style="width: 150px; margin: 0;">Non acquis</div>
-                        <span><strong>AC22.01</strong> - Identifier les tests et mesures à mettre en place pour valider le fonctionnement d'un système</span>
+                    <div class="ac-item" onclick="toggleAC(this)">
+                        <div class="ac-header"><div class="acquisition-status status-acquis"><span class="status-dot"></span>Acquis</div><span><strong>AC22.01</strong> - Identifier les tests et mesures à mettre en place pour valider le fonctionnement d'un système</span><span class="ac-arrow">▼</span></div>
+                        <div class="ac-body">Votre explication pour AC22.01 — décrivez ici ce que vous avez réalisé pour acquérir cette compétence.</div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div class="acquisition-status status-nonacquis" style="width: 150px; margin: 0;">Non acquis</div>
-                        <span><strong>AC22.02</strong> - Certifier le fonctionnement d'un nouvel équipement industriel</span>
+                    <div class="ac-item" onclick="toggleAC(this)">
+                        <div class="ac-header"><div class="acquisition-status status-acquis"><span class="status-dot"></span>Acquis</div><span><strong>AC22.02</strong> - Certifier le fonctionnement d'un nouvel équipement industriel</span><span class="ac-arrow">▼</span></div>
+                        <div class="ac-body">Votre explication pour AC22.02 — décrivez ici ce que vous avez réalisé pour acquérir cette compétence.</div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div class="acquisition-status status-nonacquis" style="width: 150px; margin: 0;">Non acquis</div>
-                        <span><strong>AC32.01</strong> - Évaluer la cause racine d'un dysfonctionnement</span>
+                    <div class="ac-item" onclick="toggleAC(this)">
+                        <div class="ac-header"><div class="acquisition-status status-nonacquis"><span class="status-dot"></span>Non acquis</div><span><strong>AC32.01</strong> - Évaluer la cause racine d'un dysfonctionnement</span><span class="ac-arrow">▼</span></div>
+                        <div class="ac-body">Votre explication pour AC32.01 — décrivez ici ce que vous prévoyez de faire pour acquérir cette compétence.</div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div class="acquisition-status status-nonacquis" style="width: 150px; margin: 0;">Non acquis</div>
-                        <span><strong>AC32.02</strong> - Proposer une solution corrective à un dysfonctionnement</span>
+                    <div class="ac-item" onclick="toggleAC(this)">
+                        <div class="ac-header"><div class="acquisition-status status-nonacquis"><span class="status-dot"></span>Non acquis</div><span><strong>AC32.02</strong> - Proposer une solution corrective à un dysfonctionnement</span><span class="ac-arrow">▼</span></div>
+                        <div class="ac-body">Votre explication pour AC32.02 — décrivez ici ce que vous prévoyez de faire pour acquérir cette compétence.</div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div class="acquisition-status status-nonacquis" style="width: 150px; margin: 0;">Non acquis</div>
-                        <span><strong>AC32.03</strong> - Produire une procédure d'essais pour valider la conformité d'un système</span>
+                    <div class="ac-item" onclick="toggleAC(this)">
+                        <div class="ac-header"><div class="acquisition-status status-nonacquis"><span class="status-dot"></span>Non acquis</div><span><strong>AC32.03</strong> - Produire une procédure d'essais pour valider la conformité d'un système</span><span class="ac-arrow">▼</span></div>
+                        <div class="ac-body">Votre explication pour AC32.03 — décrivez ici ce que vous prévoyez de faire pour acquérir cette compétence.</div>
                     </div>
                 </div>
             </div>
@@ -1462,46 +540,41 @@
     <div id="modal-maintenir" class="modal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('maintenir')">×</button>
-            
-            <div class="modal-header">
-                <div class="modal-icon">🔧</div>
-                <h2>Maintenir</h2>
-            </div>
-
+            <div class="modal-header"><div class="modal-icon">🔧</div><h2>Maintenir</h2></div>
             <div class="projet-item">
                 <h4>Apprentissages Critiques</h4>
                 <div class="projet-detail">
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div class="acquisition-status status-nonacquis" style="width: 150px; margin: 0;">Non acquis</div>
-                        <span><strong>AC23.01</strong> - Exécuter l'entretien et le contrôle d'un système en respectant une procédure</span>
+                    <div class="ac-item" onclick="toggleAC(this)">
+                        <div class="ac-header"><div class="acquisition-status status-acquis"><span class="status-dot"></span>Acquis</div><span><strong>AC23.01</strong> - Exécuter l'entretien et le contrôle d'un système en respectant une procédure</span><span class="ac-arrow">▼</span></div>
+                        <div class="ac-body">Votre explication pour AC23.01 — décrivez ici ce que vous avez réalisé pour acquérir cette compétence.</div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div class="acquisition-status status-nonacquis" style="width: 150px; margin: 0;">Non acquis</div>
-                        <span><strong>AC23.02</strong> - Exécuter une opération de maintenance (corrective, préventive, améliorative)</span>
+                    <div class="ac-item" onclick="toggleAC(this)">
+                        <div class="ac-header"><div class="acquisition-status status-acquis"><span class="status-dot"></span>Acquis</div><span><strong>AC23.02</strong> - Exécuter une opération de maintenance (corrective, préventive, améliorative)</span><span class="ac-arrow">▼</span></div>
+                        <div class="ac-body">Votre explication pour AC23.02 — décrivez ici ce que vous avez réalisé pour acquérir cette compétence.</div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div class="acquisition-status status-nonacquis" style="width: 150px; margin: 0;">Non acquis</div>
-                        <span><strong>AC23.03</strong> - Diagnostiquer un dysfonctionnement dans un système</span>
+                    <div class="ac-item" onclick="toggleAC(this)">
+                        <div class="ac-header"><div class="acquisition-status status-acquis"><span class="status-dot"></span>Acquis</div><span><strong>AC23.03</strong> - Diagnostiquer un dysfonctionnement dans un système</span><span class="ac-arrow">▼</span></div>
+                        <div class="ac-body">Votre explication pour AC23.03 — décrivez ici ce que vous avez réalisé pour acquérir cette compétence.</div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div class="acquisition-status status-nonacquis" style="width: 150px; margin: 0;">Non acquis</div>
-                        <span><strong>AC23.04</strong> - Identifier la cause racine du dysfonctionnement</span>
+                    <div class="ac-item" onclick="toggleAC(this)">
+                        <div class="ac-header"><div class="acquisition-status status-acquis"><span class="status-dot"></span>Acquis</div><span><strong>AC23.04</strong> - Identifier la cause racine du dysfonctionnement</span><span class="ac-arrow">▼</span></div>
+                        <div class="ac-body">Votre explication pour AC23.04 — décrivez ici ce que vous avez réalisé pour acquérir cette compétence.</div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div class="acquisition-status status-nonacquis" style="width: 150px; margin: 0;">Non acquis</div>
-                        <span><strong>AC33.01</strong> - Proposer une solution de maintenance</span>
+                    <div class="ac-item" onclick="toggleAC(this)">
+                        <div class="ac-header"><div class="acquisition-status status-nonacquis"><span class="status-dot"></span>Non acquis</div><span><strong>AC33.01</strong> - Proposer une solution de maintenance</span><span class="ac-arrow">▼</span></div>
+                        <div class="ac-body">Votre explication pour AC33.01 — décrivez ici ce que vous prévoyez de faire pour acquérir cette compétence.</div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div class="acquisition-status status-nonacquis" style="width: 150px; margin: 0;">Non acquis</div>
-                        <span><strong>AC33.02</strong> - Évaluer les coûts d'indisponibilité et de maintenance d'un système</span>
+                    <div class="ac-item" onclick="toggleAC(this)">
+                        <div class="ac-header"><div class="acquisition-status status-nonacquis"><span class="status-dot"></span>Non acquis</div><span><strong>AC33.02</strong> - Évaluer les coûts d'indisponibilité et de maintenance d'un système</span><span class="ac-arrow">▼</span></div>
+                        <div class="ac-body">Votre explication pour AC33.02 — décrivez ici ce que vous prévoyez de faire pour acquérir cette compétence.</div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div class="acquisition-status status-nonacquis" style="width: 150px; margin: 0;">Non acquis</div>
-                        <span><strong>AC33.03</strong> - Produire une procédure de maintenance</span>
+                    <div class="ac-item" onclick="toggleAC(this)">
+                        <div class="ac-header"><div class="acquisition-status status-nonacquis"><span class="status-dot"></span>Non acquis</div><span><strong>AC33.03</strong> - Produire une procédure de maintenance</span><span class="ac-arrow">▼</span></div>
+                        <div class="ac-body">Votre explication pour AC33.03 — décrivez ici ce que vous prévoyez de faire pour acquérir cette compétence.</div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div class="acquisition-status status-nonacquis" style="width: 150px; margin: 0;">Non acquis</div>
-                        <span><strong>AC33.04</strong> - Proposer un appui technique aux différents acteurs à l'échelle nationale et internationale</span>
+                    <div class="ac-item" onclick="toggleAC(this)">
+                        <div class="ac-header"><div class="acquisition-status status-nonacquis"><span class="status-dot"></span>Non acquis</div><span><strong>AC33.04</strong> - Proposer un appui technique aux différents acteurs à l'échelle nationale et internationale</span><span class="ac-arrow">▼</span></div>
+                        <div class="ac-body">Votre explication pour AC33.04 — décrivez ici ce que vous prévoyez de faire pour acquérir cette compétence.</div>
                     </div>
                 </div>
             </div>
@@ -1511,80 +584,68 @@
     <div id="modal-implanter" class="modal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('implanter')">×</button>
-            
-            <div class="modal-header">
-                <div class="modal-icon">🛠️</div>
-                <h2>Implanter</h2>
-            </div>
-
+            <div class="modal-header"><div class="modal-icon">🛠️</div><h2>Implanter</h2></div>
             <div class="projet-item">
                 <h4>Apprentissages Critiques</h4>
                 <div class="projet-detail">
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div class="acquisition-status status-nonacquis" style="width: 150px; margin: 0;">Non acquis</div>
-                        <span><strong>AC24.01ESE</strong> - Appliquer une procédure de fabrication pour implanter les composants matériels et/ou logiciels dans un système</span>
+                    <div class="ac-item" onclick="toggleAC(this)">
+                        <div class="ac-header"><div class="acquisition-status status-acquis"><span class="status-dot"></span>Acquis</div><span><strong>AC24.01ESE</strong> - Appliquer une procédure de fabrication pour implanter les composants matériels et/ou logiciels dans un système</span><span class="ac-arrow">▼</span></div>
+                        <div class="ac-body">Votre explication pour AC24.01ESE — décrivez ici ce que vous avez réalisé pour acquérir cette compétence.</div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div class="acquisition-status status-nonacquis" style="width: 150px; margin: 0;">Non acquis</div>
-                        <span><strong>AC24.02ESE</strong> - Évaluer la conformité du système</span>
+                    <div class="ac-item" onclick="toggleAC(this)">
+                        <div class="ac-header"><div class="acquisition-status status-acquis"><span class="status-dot"></span>Acquis</div><span><strong>AC24.02ESE</strong> - Évaluer la conformité du système</span><span class="ac-arrow">▼</span></div>
+                        <div class="ac-body">Votre explication pour AC24.02ESE — décrivez ici ce que vous avez réalisé pour acquérir cette compétence.</div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div class="acquisition-status status-nonacquis" style="width: 150px; margin: 0;">Non acquis</div>
-                        <span><strong>AC34.01ESE</strong> - Produire une procédure d'installation et de mise en service d'un système</span>
+                    <div class="ac-item" onclick="toggleAC(this)">
+                        <div class="ac-header"><div class="acquisition-status status-nonacquis"><span class="status-dot"></span>Non acquis</div><span><strong>AC34.01ESE</strong> - Produire une procédure d'installation et de mise en service d'un système</span><span class="ac-arrow">▼</span></div>
+                        <div class="ac-body">Votre explication pour AC34.01ESE — décrivez ici ce que vous prévoyez de faire pour acquérir cette compétence.</div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div class="acquisition-status status-nonacquis" style="width: 150px; margin: 0;">Non acquis</div>
-                        <span><strong>AC34.02ESE</strong> - Exécuter la mise en service d'un système en respectant la procédure</span>
+                    <div class="ac-item" onclick="toggleAC(this)">
+                        <div class="ac-header"><div class="acquisition-status status-nonacquis"><span class="status-dot"></span>Non acquis</div><span><strong>AC34.02ESE</strong> - Exécuter la mise en service d'un système en respectant la procédure</span><span class="ac-arrow">▼</span></div>
+                        <div class="ac-body">Votre explication pour AC34.02ESE — décrivez ici ce que vous prévoyez de faire pour acquérir cette compétence.</div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <div class="acquisition-status status-nonacquis" style="width: 150px; margin: 0;">Non acquis</div>
-                        <span><strong>AC34.03ESE</strong> - Produire le dossier de conformité du système en gérant le versionnage</span>
+                    <div class="ac-item" onclick="toggleAC(this)">
+                        <div class="ac-header"><div class="acquisition-status status-nonacquis"><span class="status-dot"></span>Non acquis</div><span><strong>AC34.03ESE</strong> - Produire le dossier de conformité du système en gérant le versionnage</span><span class="ac-arrow">▼</span></div>
+                        <div class="ac-body">Votre explication pour AC34.03ESE — décrivez ici ce que vous prévoyez de faire pour acquérir cette compétence.</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         function showSection(sectionId, element) {
-            document.querySelectorAll('.section').forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(sectionId).classList.add('active');
-            element.classList.add('active');
+            if (element) element.classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-
         function openModal(competence) {
-            const modal = document.getElementById('modal-' + competence);
-            modal.classList.add('active');
+            document.getElementById('modal-' + competence).classList.add('active');
             document.body.style.overflow = 'hidden';
         }
-
         function closeModal(competence) {
-            const modal = document.getElementById('modal-' + competence);
-            modal.classList.remove('active');
+            document.getElementById('modal-' + competence).classList.remove('active');
             document.body.style.overflow = 'auto';
         }
-
+        function toggleAC(item) {
+            const isOpen = item.classList.contains('open');
+            // Ferme tous les autres dans le même bloc
+            const siblings = item.parentElement.querySelectorAll('.ac-item');
+            siblings.forEach(s => s.classList.remove('open'));
+            // Ouvre celui cliqué sauf s'il était déjà ouvert
+            if (!isOpen) item.classList.add('open');
+        }
         document.querySelectorAll('.modal').forEach(modal => {
             modal.addEventListener('click', function(e) {
-                if (e.target === this) {
-                    this.classList.remove('active');
-                    document.body.style.overflow = 'auto';
-                }
+                if (e.target === this) { this.classList.remove('active'); document.body.style.overflow = 'auto'; }
             });
         });
-
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
-                document.querySelectorAll('.modal.active').forEach(modal => {
-                    modal.classList.remove('active');
+                document.querySelectorAll('.modal.active').forEach(m => {
+                    m.classList.remove('active');
                     document.body.style.overflow = 'auto';
                 });
             }
